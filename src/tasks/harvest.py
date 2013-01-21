@@ -15,6 +15,8 @@ def startHarvest(config):
     log.debug('got here')
     lrUrl = config['lrUrl']
     r = redis.StrictRedis(host=config['redis']['host'], port=config['redis']['port'], db=config['redis']['db'])
+    if r.get(config['semaphore']) > 0:
+        return
     fromDate = None
     try:
         fromDate = r.get('lastHarvestTime')

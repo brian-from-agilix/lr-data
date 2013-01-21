@@ -16,13 +16,14 @@ config = {
         "index": "lr",
         "index-type": "lr"
     },
-    "insertTask": "tasks.save.insertLRInterface",
-    "validationTask": "tasks.validate.emptyValidate",
+    "insertTask": ["tasks.save.insertDocumentElasticSearch", "tasks.save.insertDocumentLRB"],
+    "validationTask": "tasks.validate.validateLRMI",
     "redis": {
         "host": "localhost",
         "port": 6379,
         "db": 0
     }
+    'semaphore': 'semaphore'
 }
 # List of modules to import when celery starts.
 CELERY_IMPORTS = ("tasks.harvest", "tasks.save", "tasks.validate")
